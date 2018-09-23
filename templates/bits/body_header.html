@@ -1,0 +1,134 @@
+<div id="wrapper">
+  <div class="pilar">
+    <div class="top">
+      <a href="{{ homepage_url }}">
+        <i class="fa fa-1p5 fa-university"
+           aria-hidden="true"></i>
+      </a>
+      <a href="{{ findpage_url }}">
+        <i class="fa fa-1p5 fa-search" aria-hidden="true"></i>
+      </a>
+      <a href="{{ helpcontents_url }}">
+        <i class="fa fa-1p5 fa-question-circle"
+           aria-hidden="true"></i>
+      </a>
+    </div>
+    <div class="bottom">
+      <div>
+        {% if user_items.user %}
+        <a href="{{ user_items.user.url }}" title="{{ user_items.user.title }}">
+          <i class="fa fa-1p5 fa-user-circle"
+             aria-hidden="true"></i>
+        </a>
+        <a href="{{ user_items.settings.url }}" title="{{ user_items.settings.title }}" rel="nofollow">
+          <i class="fa fa-sliders" aria-hidden="true"></i>
+        </a>
+        <a href="{{ user_items.logout.url }}" title="{{ user_items.logout.title }}" rel="nofollow">
+          <i class="fa fa-sign-out" aria-hidden="true"></i>
+        </a>
+        {% else %}
+        <a href="{{ user_items.login.url }}" title="{{ user_items.login.title }}" rel="nofollow">
+          <i class="fa fa-sign-in" aria-hidden="true"></i>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="sidebar">
+    <div class="sidebar-collapse">
+      <div>
+        <h3 class="sitename">{{ logo_markup }}</h3>
+        <div id="toc" class="invisible">
+        </div>
+        
+        {% if navigation_items|count %}
+        <h6>Navigation</h6>
+        <div class="list-group">
+          {% for item in navigation_items %}
+          <a href="{{ item.href }}"
+             class="list-group-item list-group-item-action {% if item.active %}active{% endif %}">
+            {{ item.name }}
+          </a>
+          {% endfor %}
+          <hr/>
+        </div>
+        {% endif %}
+          
+        {% if trail_items|count %}
+        <h6>Trail</h6>
+        <div class="list-group">
+          {% for item in trail_items %}
+          <a href="{{ item.href }}"
+             class="list-group-item list-group-item-action {% if item.active %}active{% endif %}">
+            {{ item.name }}
+          </a>
+          {% endfor %}
+        </div>
+        {% endif %}
+        
+      </div>
+    </div>
+  </div>
+  <div class="page" data-pagename="{{ page_name }}">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand d-block d-lg-none" href="{{ homepage_url }}">{{ logo_string }}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main" aria-controls="navbar-main" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbar-main">
+          <ul class="navbar-nav mr-auto">
+            {% if edit_button.visible %}
+            <li class="nav-item pr-3">
+              <a class="btn btn-secondary {{ edit_button.class }}" href="{{ edit_button.href }}">{{ edit_button.label }}</a>
+            </li>
+            {% endif %}
+            {% for menu_group in menu %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true" href="#">{{ menu_group.label }}</a>
+              <div class="dropdown-menu">
+                {% for entry in menu_group.entries %}
+                <a class="dropdown-item" href="{{ entry.href }}">
+                  <i class="{{ entry.icon }}" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ entry.title }}
+                </a>
+                {% endfor %}
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+          <form id="searchform" method="get" action="{{ search_form_action }}" class="form-inline my-2 my-lg-0">
+            <input type="hidden" name="action" value="fullsearch">
+            <input type="hidden" name="context" value="180">
+            <input id="searchinput" class="form-control mr-sm-2" placeholder="{{ search_form_label }}" type="text" name="value" value="{{ search_form_value }}">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">{{ search_form_label }}</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <article>
+      {% if msgs|count %}
+      <div class="header">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              {% for msg in msgs %}
+              <div class="{{ msg.type }} {{ msg.style }}">
+                {% if msg.type == 'card' %}<div class="card-body">{% endif %}{{ msg.text }}{% if msg.type == 'card' %}</div>{% endif %}
+                {% if msg.type != 'card' %}
+                <a href="{{ search_form_action }}" class="invisible close" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </a>
+                {% endif %}
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      <div class="detail">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              

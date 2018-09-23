@@ -7,19 +7,24 @@
 FROM debian:stretch-slim
 MAINTAINER Olav Grønås Gjerde <olav@backupbay.com>
 
-# Set the version you want of MoinMoin
+# Set the version you want of MoinMoin.
 ENV MM_VERSION 1.9.10
 ENV MM_CSUM 6ae110a22a23bfa6dd5c149b8d66f7ad34976d5d
 
-# Install software
+# Install software.
 RUN apt-get update && apt-get install -qqy --no-install-recommends \
   python2.7 \
+  python-setuptools \
+  python-pip \
   curl \
   openssl \
   nginx \
   uwsgi \
   uwsgi-plugin-python \
   rsyslog
+
+# Install Python packages with pip.
+RUN pip install bs4 jinja2
 
 # Download MoinMoin
 RUN curl -OkL \
@@ -32,6 +37,9 @@ RUN tar xf moin-$MM_VERSION.tar.gz -C moinmoin --strip-components=1
 # Install MoinMoin
 RUN cd moinmoin && python2.7 setup.py install --force --prefix=/usr/local
 ADD wikiconfig.py /usr/local/share/moin/
+ADD templates /usr/local/share/moin/templates/
+ADD alicia.py /usr/local/share/moin/data/plugin/theme/
+ADD alicia /usr/local/lib/python2.7/dist-packages/MoinMoin/web/static/htdocs/alicia/
 RUN chown -Rh www-data:www-data /usr/local/share/moin/underlay
 USER root
 

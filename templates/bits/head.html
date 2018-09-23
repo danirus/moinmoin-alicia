@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" long="turu">
+  <head>
+    <meta charset="{{ charset }}">
+    <title>{{ title }}{% if sitename %} - {{ sitename }}{% endif %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    {% if meta_keywords %}
+    <meta name="keywords" content="{{ meta_keywords }}" />
+    {% endif %}
+    {% if meta_description %}
+    <meta name="description" content="{{ meta_description }}" />
+    {% endif %}
+    {% if robots == "noindex" %}
+    <meta name="robots" content="noindex,nofollow">
+    {% elif robots == "index" %}
+    <meta name="robots" content="index,follow">
+    {% else %}
+    <meta name="robots" content="index,nofollow">
+    {% endif %}
+    {% if refresh_seconds %}
+    <meta http-equiv="refresh"
+          content="{{ refresh_seconds }};URL={{ refresh_url }}">
+    {% endif %}
+    {% for item in stylesheets %}
+    <link {% for attr in item %}{{ attr.name }}="{{ attr.value }}"{% endfor %}>
+    {% endfor %}
+    <link rel="stylesheet"
+          href="{{ static_base }}/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          href="{{ static_base }}/twemoji-awesome/twemoji-awesome.css">
+    {% if rss_link_href %}
+    <link rel="alternate" title="{{ rss_link_title }}"
+          href="{{ rss_link_href }}" type="application/rss+xml">
+    {% endif %}
+    {% if universal_edit_button_href %}
+    <link rel="alternate" title="{{ universal_edit_button_title }}"
+          href="{{ universal_edit_button_href }}" type="application/wiki">
+    {% endif %}
+    {% if universal_edit_button_link %}{{ universal_edit_button_link }}{% endif %}
+    <script type="text/javascript" src="{{ common_js }}"></script>
+    <script type="text/javascript">
+     var search_hint = "{{ search_hint }}";
+     {% if gui_editor_link_href %}
+     var gui_editor_link_href = "{{ gui_editor_link_href }}";
+     var gui_editor_link_text = "{{ gui_editor_link_text }}";
+     {% endif %}
+    </script>
+    {% if extra_html_head %}{{ extra_html_head }}{% endif %}
+    <link rel="Start" href="{{ page_start_href }}">
+    {% if page_alternate_title %}
+    <link rel="Alternate" title="{{ page_alternate_title }}" href="{{ page_alternate_href }}">
+    {% endif %}
+    {% if print_alternate_title %}
+    <link rel="Alternate" media="print" title="{{ print_alternate_title }}" href="{{ print_alternate_href }}">
+    {% endif %}
+    {% if page_up_href %}<link ref="Up" href="{{ page_up_href }}">{% endif %}
+    {% if attached_links %}{{ attached_links }}{% endif %}
+    {% for item in extra_links %}
+    <link rel="{{ item.rel }}" href="{{ item.href }}">
+    {% endfor %}
+  </head>
