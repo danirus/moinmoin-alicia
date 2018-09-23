@@ -71,8 +71,10 @@ class Config(multiconfig.DefaultConfig):
     # For no logo or text, use '' - the default is to show the sitename.
     # See also url_prefix setting below!
     #logo_string = u'<img src="%s/common/moinmoin.png" alt="MoinMoin Logo">' % url_prefix_static
-    logo_string = u'<img src="%s/common/logo.png" alt="Logo">' % url_prefix_static
-
+    logo_string = (u'<img src="%s/common/logo.png" alt="Logo">' %
+                   url_prefix_static)
+    logo_markup = u'Wiki of<br/><small>Someone like you</small>'
+    
     # name of entry page / front page [Unicode], choose one of those:
 
     # a) if most wiki content is in a single language
@@ -155,7 +157,8 @@ class Config(multiconfig.DefaultConfig):
     ]
 
     # The default theme anonymous or new users get
-    theme_default = 'modernized'
+    theme_default = 'alicia'
+    templates_path = os.path.join(instance_dir, 'templates')
 
 
     # Language options --------------------------------------------------
