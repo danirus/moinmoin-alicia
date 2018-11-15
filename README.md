@@ -1,9 +1,8 @@
 # moinmoin-alicia
-=================
 
-This repository extends [olavgg/moinmoin-wiki](https://github.com/olavgg/moinmoin-wiki) to enable the [MoinMoin-Alicia](https://github.com/danirus/moin-theme-alicia) theme to the running wiki.
+This repository extends [olavgg/moinmoin-wiki](https://github.com/olavgg/moinmoin-wiki) to enable the [MoinMoin-Alicia](https://github.com/danirus/moin-theme-alicia) theme in the running wiki.
 
-Keep reading origial [olavgg/moinmoin-wiki](https://github.com/olavgg/moinmoin-wiki) readme file.
+Following is the original [olavgg/moinmoin-wiki](https://github.com/olavgg/moinmoin-wiki) readme file.
 
 ----
 
