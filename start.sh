@@ -6,6 +6,10 @@
 if ! [ "$(ls -A /usr/local/share/moin/data)" ]; then
     cp -r /usr/local/share/moin/bootstrap-data/* /usr/local/share/moin/data/
     chown -R www-data:www-data /usr/local/share/moin/data
+else
+    chmod g+x /usr/local/share/moin/data
+    chown -R www-data:www-data /usr/local/share/moin/data
+    find /usr/local/share/moin/data/ -type d -exec chmod g+s {} \;
 fi
 
 # Enable SSL by default
