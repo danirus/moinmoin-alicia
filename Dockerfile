@@ -5,7 +5,7 @@
 # TO_RUN:         docker run -d -p 80:80 -p 443:443 --name my_wiki moinmoin
 
 FROM debian:stretch-slim
-MAINTAINER Olav Grønås Gjerde <olav@backupbay.com>
+MAINTAINER Daniel Rus Morales <mbox@danir.us>
 
 # Set the version you want of MoinMoin.
 ENV MM_VERSION 1.9.10
