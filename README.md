@@ -2,7 +2,7 @@
 
 This repository extends [olavgg/moinmoin-wiki](https://github.com/olavgg/moinmoin-wiki) to enable the [MoinMoin-Alicia](https://github.com/danirus/moin-theme-alicia) theme in the running wiki.
 
-![Screenshot of MoinMoin with Alicia Theme](https://github.com/danirus/moinmoin-alicia/screenshot.png)
+![Screenshot of MoinMoin with Alicia Theme](https://github.com/danirus/moinmoin-alicia/blob/master/screenshot.png)
 
 Docker image with the Moinmoin wiki engine, uwsgi, nginx and self signed SSL.
 Everything included with minimum fuzz and just works.
