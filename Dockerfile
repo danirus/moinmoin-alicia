@@ -1,11 +1,12 @@
 # VERSION 0.6
-# AUTHOR:         Olav Grønås Gjerde <olav@backupbay.com>
-# DESCRIPTION:    Image with MoinMoin wiki, uwsgi, nginx and self signed SSL
+# AUTHOR:         Olav Grønås Gjerde <olav@backupbay.com>,
+#                 Daniel Rus Morales <rus.daniel@gmail.com>
+# DESCRIPTION:    Image with MoinMoin wiki and uwsgi
 # TO_BUILD:       docker build -t moinmoin .
 # TO_RUN:         docker run -d -p 80:80 -p 443:443 --name my_wiki moinmoin
 
 FROM debian:stretch-slim
-MAINTAINER Daniel Rus Morales <mbox@danir.us>
+MAINTAINER Daniel Rus Morales <rus.daniel@gmail.com>
 
 # Set the version you want of MoinMoin.
 ENV MM_VERSION 1.9.10
@@ -17,8 +18,6 @@ RUN apt-get update && apt-get install -qqy --no-install-recommends \
   python-setuptools \
   python-pip \
   curl \
-  openssl \
-  nginx \
   uwsgi \
   uwsgi-plugin-python \
   rsyslog
@@ -50,19 +49,6 @@ RUN cp -r /usr/local/share/moin/data /usr/local/share/moin/bootstrap-data
 RUN chown -R www-data:www-data /usr/local/share/moin/data
 ADD logo.png /usr/local/lib/python2.7/dist-packages/MoinMoin/web/static/htdocs/common/
 
-# Configure nginx
-ADD nginx.conf /etc/nginx/
-ADD moinmoin-nossl.conf /etc/nginx/sites-available/
-ADD moinmoin-ssl.conf /etc/nginx/sites-available/
-RUN mkdir -p /var/cache/nginx/cache
-RUN rm /etc/nginx/sites-enabled/default
-
-# Create self signed certificate
-ADD generate_ssl_key.sh /usr/local/bin/
-RUN /usr/local/bin/generate_ssl_key.sh moinmoin.example.org
-RUN mv cert.pem /etc/ssl/certs/
-RUN mv key.pem /etc/ssl/private/
-
 # Cleanup
 RUN rm moin-$MM_VERSION.tar.gz
 RUN rm -rf /moinmoin
@@ -75,7 +61,6 @@ ADD start.sh /usr/local/bin/
 
 VOLUME /usr/local/share/moin/data
 
-EXPOSE 80
-EXPOSE 443
+EXPOSE 8000
 
 CMD start.sh
