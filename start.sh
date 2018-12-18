@@ -12,20 +12,9 @@ else
     find /usr/local/share/moin/data/ -type d -exec chmod g+s {} \;
 fi
 
-# Enable SSL by default
-if [ "$NOSSL" = "1" ]; then
-    echo "*******USING NOSSL*******"
-    ln -sf /etc/nginx/sites-available/moinmoin-nossl.conf \
-        /etc/nginx/sites-enabled/moinmoin.conf
-else
-    echo "*******USING SSL*******"
-    ln -sf /etc/nginx/sites-available/moinmoin-ssl.conf \
-        /etc/nginx/sites-enabled/moinmoin.conf
-fi
-
-service rsyslog start && service nginx start && uwsgi \
+service rsyslog start && uwsgi \
     --uid www-data \
-    -s /tmp/uwsgi.sock \
+    --http-socket :8000 \
     --plugins python \
     --pidfile /var/run/uwsgi-moinmoin.pid \
     --wsgi-file server/moin.wsgi \
